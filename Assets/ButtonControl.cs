@@ -19,7 +19,6 @@ public class ButtonControl : MonoBehaviour
                 exitPanel.SetActive(true);
             }
             else{
-                AdmobScript.instance.showInterstitialAd();
                 menuPanel.SetActive(true);
             }
         }
@@ -46,33 +45,11 @@ public class ButtonControl : MonoBehaviour
         Application.Quit();
     }
 
-    public void oneP()
-    {
-        GameControl.nofPlayers = 1;
-        SceneManager.LoadScene("Main");
-    }
 
     public void twoP()
     {
         GameControl.nofPlayers = 2;
         SceneManager.LoadScene("Main");
-    }
-
-    public void threeP()
-    {
-        GameControl.nofPlayers = 3;
-        SceneManager.LoadScene("Main");
-    }
-
-    public void fourP()
-    {
-        GameControl.nofPlayers = 4;
-        SceneManager.LoadScene("Main");
-    }
-
-    public void OpenUrl(){
-        Application.OpenURL("http://raviikmr.github.io/privacy-snakeladder.html");
-
     }
 
 }

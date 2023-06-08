@@ -9,12 +9,14 @@ public class FollowThePath : MonoBehaviour {
 
 
     [SerializeField]
-    private float moveSpeed = 1f;
+    public float moveSpeed = 1f;
 
     [HideInInspector]
     public int waypointIndex = 0;
 
     public bool moveAllowed = false;
+
+    public bool sameSquare = false;
 
 	// Use this for initialization
 	private void Start () {
@@ -31,28 +33,26 @@ public class FollowThePath : MonoBehaviour {
 	private void Update () {
         
         if (moveAllowed){
-            Move();
+            Move(1);
         }
         
 	}
 
-    private void Move()
+    public void Move(int distance)
     {
-        
         if (waypointIndex <= waypoints.Count - 1)
         {
-            //LadderCheck();
             transform.position = Vector2.MoveTowards(transform.position,
             waypoints[waypointIndex].transform.position,
             moveSpeed * Time.deltaTime);
 
             if (transform.position == waypoints[waypointIndex].transform.position)
             {
-                waypointIndex += 1;
+                waypointIndex += distance;
             }
             
         }
-        
+        sameSquare = false;
 
        }
 
