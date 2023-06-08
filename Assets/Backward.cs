@@ -9,20 +9,10 @@ public class Backward : MonoBehaviour {
 
 
     private void OnMouseDown(){
-        GameControl.action = "Backward";
-        string newMessage = GameControl.message;
-        newMessage = newMessage + "5";
-        GameControl.message = newMessage;
-        Debug.Log("Send 5");
-        MoveBackward(2,1);
+        MoveBackward();
     }
 
-    public void InitiateMoveBackward() {
-        MoveBackward(1,2);
-    }
-
-
-    public void MoveBackward(int nextTurn, int method){
+    public void MoveBackward(){
         GameControl.numBackward =+ 1;
         GameControl control = GameObject.Find("GameControl").GetComponent<GameControl>();
         int player1Location = control.GetPlayer1Location();
@@ -32,34 +22,23 @@ public class Backward : MonoBehaviour {
         int newLocation = 0;
         int newWho = 0;
         GameObject player;
-        if(method == 1){
-            newWho = 2;
+        if(whosTurn == 2){
             dice.coroutineAllowed = false;
             player = GameObject.Find("Player2");
-            // player.GetComponent<FollowThePath>().sameSquare = true;
-            // player.GetComponent<FollowThePath>().Move(3);
-            //TODO: Make it move properly - when using move it just keeps updating which makes it keep moving which is not what we want
-            //maybe stop trying to make it move properly
-            //try and take code from the ladders and snakes???
             newLocation = player2Location - 3;
             player.GetComponent<FollowThePath>().transform.position = player.GetComponent<FollowThePath>().waypoints[newLocation].transform.position;
             player.GetComponent<FollowThePath>().waypointIndex = newLocation;
             player.GetComponent<FollowThePath>().waypointIndex +=1;
             dice.player2Index =- 3;
+            newWho = 2;
         }else{
-            newWho = 1;
             dice.coroutineAllowed = false;
             player = GameObject.Find("Player1");
-            // player.GetComponent<FollowThePath>().sameSquare = true;
-            // player.GetComponent<FollowThePath>().Move(3);
-            //TODO: Make it move properly - when using move it just keeps updating which makes it keep moving which is not what we want
-            //maybe stop trying to make it move properly
-            //try and take code from the ladders and snakes???
-            newLocation = player1Location - 3;
             player.GetComponent<FollowThePath>().transform.position = player.GetComponent<FollowThePath>().waypoints[newLocation].transform.position;
             player.GetComponent<FollowThePath>().waypointIndex = newLocation;
             player.GetComponent<FollowThePath>().waypointIndex +=1;
             dice.player1Index =- 3;
+            newWho = 1;
         }
         if(newLocation == 3){
             player.GetComponent<FollowThePath>().transform.position = player.GetComponent<FollowThePath>().waypoints[24].transform.position;
