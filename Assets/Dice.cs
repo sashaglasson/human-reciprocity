@@ -35,24 +35,10 @@ public class Dice : MonoBehaviour
 
     private void OnMouseDown()
     {
-        diceRolled = true;
-        // Disable the dice when it's the robot player
-        if(whosTurn == 2) {
-            return;
-        }
-
-
         if (!GameControl.gameOver && coroutineAllowed)
             StartCoroutine("RollTheDice");
             GetComponent<AudioSource>().Play();
         
-    }
-
-    public void ActualRoll() {
-        if (GameControl.gameOver || !coroutineAllowed) return;
-
-        StartCoroutine("RollTheDice");
-        GetComponent<AudioSource>().Play();
     }
 
     public IEnumerator RollTheDice()

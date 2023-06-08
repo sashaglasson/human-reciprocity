@@ -8,21 +8,10 @@ public class Forward : MonoBehaviour {
     private void Start(){}
 
     private void OnMouseDown(){
-        Debug.Log("Forward Button Pressed");
-        GameControl.action = "Forward";
-        string newMessage = GameControl.message;
-        newMessage = newMessage + "6";
-        GameControl.message = newMessage;
-        Debug.Log("Send 6");
-        MoveForward(2, 1);
+        MoveForward();
     }
 
-    public void InitiateMoveForward() {
-        MoveForward(1, 2);
-    }
-
-
-    public void MoveForward(int nextTurn, int method){
+    public void MoveForward(){
         GameControl control = GameObject.Find("GameControl").GetComponent<GameControl>();
         GameControl.numForward =+ 1;
         int player1Location = control.GetPlayer1Location();
@@ -30,10 +19,9 @@ public class Forward : MonoBehaviour {
         Dice dice = GameObject.Find("Dice").GetComponent<Dice>();
         int whosTurn = dice.GetWhosTurn();
         int newLocation = 0;
-        int newWho = 0;
+        int newWho;
         GameObject player;
-        if(method == 1){
-            newWho = 2;
+        if(whosTurn == 2){
             dice.coroutineAllowed = false;
             player = GameObject.Find("Player2");
             // player.GetComponent<FollowThePath>().sameSquare = true;
@@ -46,8 +34,8 @@ public class Forward : MonoBehaviour {
             player.GetComponent<FollowThePath>().waypointIndex = newLocation;
             player.GetComponent<FollowThePath>().waypointIndex +=1;
             dice.player2Index =+ 3;
+            newWho = 2;
         }else{
-            newWho = 1;
             dice.coroutineAllowed = false;
             player = GameObject.Find("Player1");
             // player.GetComponent<FollowThePath>().sameSquare = true;
@@ -60,6 +48,7 @@ public class Forward : MonoBehaviour {
             player.GetComponent<FollowThePath>().waypointIndex = newLocation;
             player.GetComponent<FollowThePath>().waypointIndex +=1;
             dice.player1Index =+ 3;
+            newWho = 1;
         }
         if(newLocation == 3){
             player.GetComponent<FollowThePath>().transform.position = player.GetComponent<FollowThePath>().waypoints[24].transform.position;
